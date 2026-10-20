@@ -3,10 +3,10 @@
 #achievements{min-height:17px}#pause{background:#283f67!important}#stage:fullscreen #touch{bottom:22px}@media (pointer:coarse) and (orientation:portrait){#stage::after{content:'↻ Tourne ton téléphone en paysage pour mieux jouer';position:absolute;bottom:70px;left:50%;transform:translateX(-50%);background:#102c55e8;border-radius:10px;padding:6px 10px;font-size:12px;pointer-events:none}}
 
 #onlineTop{max-height:120px;overflow:auto;font-size:13px;color:#d9f2ff;line-height:1.5}
-#onlineState{font-size:12px;color:#ffe3ad;margin-top:5px}
+#onlineState{font-size:12px;color:#ffe3ad;margin-top:5px}#leaderboardModal .panel{width:min(980px,96vw);height:min(92dvh,760px);max-height:92dvh;display:flex;flex-direction:column;align-items:stretch;text-align:left}#leaderboardModal h2{margin:0 0 10px;color:#ffb332;font-size:clamp(24px,4vw,36px)}#leaderboardModal .leaderboardHeader{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}#leaderboardModal .leaderboardHeader .buttons{margin:0}#leaderboardFullList{flex:1;overflow:auto;margin-top:12px;padding:12px;border-radius:14px;background:#09233f;border:1px solid #6ecdf5;line-height:1.7}#leaderboardFullList .scoreLine{padding:7px 4px;border-bottom:1px solid #ffffff18}#leaderboardFullList .scoreLine:last-child{border-bottom:0}#status{display:grid;grid-template-columns:repeat(4,max-content);align-items:start}#leaderboardOpen{grid-column:4;grid-row:2;justify-self:stretch;margin-top:4px;padding:8px 12px;border-radius:9px;border:1px solid #9bd8fc;background:#08375e;color:white;cursor:pointer;font-weight:700}
 #attackMobile{background:linear-gradient(135deg,#ffc044,#ff8f21);color:#173353;font-weight:900;touch-action:manipulation}#attackMobile:active{transform:scale(.94)}
-</style></head><body><div id="stage"><canvas id="game" width="1152" height="648"></canvas><div id="status"><button id="mute" type="button" title="Activer ou couper la musique">🎵 Musique : ON</button> <button id="effectsMute" type="button" title="Activer ou couper les bruitages et les voix">🔊 Effets : ON</button> <button id="pause" type="button">⏸ Pause</button> <button id="fullscreen" type="button">⛶ Plein écran</button></div><div id="touch"><div class="leftBtns"><button data-key="left">◀</button><button data-key="right">▶</button></div><button data-key="jump">SAUT ↑</button><button id="attackMobile" type="button" aria-label="Lancer un Zika">⚡ ZIKA !</button><button type="button" id="crouchMobile" style="touch-action:none;background:#246d9b;color:white;border:2px solid #9fe7ff;border-radius:12px;padding:11px 15px;font-weight:bold">⬇ S’accroupir</button></div><div class="overlay" id="overlay"><div class="panel"><img id="mainLogo" alt="Logo ZikaMansle"><h1 id="heading">ZIKARUN — L'AVENTURE</h1><p id="description">Traverse cinq grands niveaux et 80 sections de Mansle-les-Fontaines avec Zika. Ramasse les notes et rejoins la scène du Festival !</p><input id="nick" maxlength="18" placeholder="Ton pseudo" autocomplete="nickname"><div class="buttons"><button id="play">▶ Jouer</button><button id="listenIntro" type="button">🔊 Écouter Zika</button><button id="help">Commandes</button><button id="resume" type="button">↩ Reprendre</button></div><div id="instructionsCard" style="margin:12px 0;padding:12px 16px;background:#092e4b;border:1px solid #69c9f4;border-radius:12px;color:#fff;font:600 14px system-ui">🎮 COMMANDES : <strong>← →</strong> ou <strong>Q / D</strong> : courir · <strong>Espace / ↑</strong> : sauter (double saut) · <strong>F ou X</strong> : lancer un Zika ⚡ · <strong>P</strong> : pause · <strong>M</strong> : son · <strong>R</strong> : recommencer<br><span style="font-weight:400">📱 Sur téléphone : boutons de déplacement, SAUT et ⚡ ZIKA ! en bas de l'écran.</span></div><p id="top10"></p><small>Classement local et classement partagé Supabase (si le serveur est accessible).</small><p id="achievements" style="font-size:12px;color:#ffe09b"></p></div></div></div>
-<audio id="music" loop preload="auto"></audio><div id="globalPanel" style="position:absolute;bottom:70px;right:12px;max-width:340px;background:#0b2647e8;color:white;border:1px solid #6dbbd7;border-radius:12px;padding:10px 14px;z-index:5;font:13px system-ui"><strong>🏆 Classement général</strong><div id="onlineTop">Configuration serveur requise</div><div id="onlineState">Mode local tant que le serveur n’est pas connecté</div></div>
+</style></head><body><div id="stage"><canvas id="game" width="1152" height="648"></canvas><div id="status"><button id="mute" type="button" title="Activer ou couper la musique">🎵 Musique : ON</button> <button id="effectsMute" type="button" title="Activer ou couper les bruitages et les voix">🔊 Effets : ON</button> <button id="pause" type="button">⏸ Pause</button> <button id="fullscreen" type="button">⛶ Plein écran</button><button id="leaderboardOpen" type="button">🏆 Classement général</button></div><div id="touch"><div class="leftBtns"><button data-key="left">◀</button><button data-key="right">▶</button></div><button data-key="jump">SAUT ↑</button><button id="attackMobile" type="button" aria-label="Lancer un Zika">⚡ ZIKA !</button><button type="button" id="crouchMobile" style="touch-action:none;background:#246d9b;color:white;border:2px solid #9fe7ff;border-radius:12px;padding:11px 15px;font-weight:bold">⬇ S’accroupir</button></div><div class="overlay" id="overlay"><div class="panel"><img id="mainLogo" alt="Logo ZikaMansle"><h1 id="heading">ZIKARUN — L'AVENTURE</h1><p id="description">Traverse cinq grands niveaux et 80 sections de Mansle-les-Fontaines avec Zika. Ramasse les notes et rejoins la scène du Festival !</p><input id="nick" maxlength="18" placeholder="Ton pseudo" autocomplete="nickname"><div class="buttons"><button id="play">▶ Jouer</button><button id="listenIntro" type="button">🔊 Écouter Zika</button><button id="help">Commandes</button><button id="resume" type="button">↩ Reprendre</button></div><div id="instructionsCard" style="margin:12px 0;padding:12px 16px;background:#092e4b;border:1px solid #69c9f4;border-radius:12px;color:#fff;font:600 14px system-ui">🎮 COMMANDES : <strong>← →</strong> ou <strong>Q / D</strong> : courir · <strong>Espace / ↑</strong> : sauter (double saut) · <strong>F ou X</strong> : lancer un Zika ⚡ · <strong>P</strong> : pause · <strong>M</strong> : son · <strong>R</strong> : recommencer<br><span style="font-weight:400">📱 Sur téléphone : boutons de déplacement, SAUT et ⚡ ZIKA ! en bas de l'écran.</span></div><p id="top10"></p><small>Classement local et classement partagé Supabase (si le serveur est accessible).</small><p id="achievements" style="font-size:12px;color:#ffe09b"></p></div></div></div>
+<audio id="music" loop preload="auto"></audio><div id="globalPanel" style="position:absolute;bottom:70px;right:12px;max-width:340px;background:#0b2647e8;color:white;border:1px solid #6dbbd7;border-radius:12px;padding:10px 14px;z-index:5;font:13px system-ui"><strong>🏆 Classement général</strong><div id="onlineTop">Configuration serveur requise</div><div id="onlineState">Mode local tant que le serveur n’est pas connecté</div></div><div class="overlay hidden" id="leaderboardModal"><div class="panel"><div class="leaderboardHeader"><div><h2>🏆 Classement général</h2><div id="onlineStateLarge" style="font-size:13px;color:#ffe3ad">Connexion au classement…</div></div><div class="buttons"><button id="leaderboardRefreshLarge" type="button">🔄 Actualiser</button><button id="leaderboardClose" type="button">✕ Fermer</button></div></div><div id="leaderboardFullList">Chargement du classement…</div></div></div>
 <script>const ASSETS={"backgrounds": ["assets/backgrounds_00.webp", "assets/backgrounds_01.webp", "assets/backgrounds_02.webp", "assets/backgrounds_03.webp", "assets/backgrounds_04.webp"], "mascot": "assets/mascot.webp", "logo": "assets/logo.webp", "music": "assets/music.mp3"};
 const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),ov=document.querySelector('#overlay'),heading=document.querySelector('#heading'),description=document.querySelector('#description'),play=document.querySelector('#play'),nick=document.querySelector('#nick'),music=document.querySelector('#music'),top10=document.querySelector('#top10');
 const W=1152,H=648,FLOOR=553,SEGW=1700,SEGMENTS=16,WIDTH=SEGW*SEGMENTS;
@@ -369,9 +369,26 @@ document.querySelector('#effectsMute').onclick=()=>{
 const ZIKARUN_ONLINE={endpoint:'https://vvxncgncfmaglfuoxxsl.supabase.co/functions/v1/zikarun-scores'};
 const onlineTop=document.querySelector('#onlineTop');
 const onlineState=document.querySelector('#onlineState');
+const onlineStateLarge=document.querySelector('#onlineStateLarge');
+const leaderboardFullList=document.querySelector('#leaderboardFullList');
+const leaderboardModal=document.querySelector('#leaderboardModal');
 let onlineRunId=null, onlineRunStartedAt=0, onlineStartPromise=null, onlineSubmitting=false;
 let onlineLastVerified=false;
-function scoreStatus(msg){onlineState.textContent=msg;}
+function scoreStatus(msg){onlineState.textContent=msg; if(onlineStateLarge)onlineStateLarge.textContent=msg;}
+function renderOnlineScores(list){
+ onlineTop.replaceChildren();
+ leaderboardFullList.replaceChildren();
+ if(!Array.isArray(list)||!list.length){
+  onlineTop.textContent='Aucun score enregistré en ligne pour le moment.';
+  leaderboardFullList.textContent='Aucun score enregistré en ligne pour le moment.';
+  return;
+ }
+ for(const [i,p] of list.entries()){
+  const txt=(i+1)+'. '+String(p.pseudo||'Anonyme')+' — '+Number(p.score||0).toLocaleString('fr-FR')+' pts';
+  const small=document.createElement('div'); small.textContent=txt; onlineTop.appendChild(small);
+  const big=document.createElement('div'); big.className='scoreLine'; big.textContent=txt; leaderboardFullList.appendChild(big);
+ }
+}
 async function onlineRequest(action,payload={}){
  const response=await fetch(ZIKARUN_ONLINE.endpoint,{method:'POST',mode:'cors',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...payload})});
  let body={};try{body=await response.json()}catch{}
@@ -383,22 +400,20 @@ async function refreshOnline(){
  try{
   const out=await onlineRequest('top');
   if(!Array.isArray(out.scores))throw new Error('Réponse du serveur invalide');
-  onlineTop.replaceChildren();
-  for(const [i,p] of out.scores.entries()){
-   const line=document.createElement('div');
-   line.textContent=(i+1)+'. '+String(p.pseudo||'Anonyme')+' — '+Number(p.score||0).toLocaleString('fr-FR')+' pts';
-   onlineTop.appendChild(line);
-  }
-  if(!out.scores.length)onlineTop.textContent='Aucun score enregistré en ligne pour le moment.';
+  renderOnlineScores(out.scores);
   onlineLastVerified=true;
   scoreStatus('✅ Classement EN LIGNE connecté · '+out.scores.length+' joueur(s)');
- }catch(err){onlineLastVerified=false;scoreStatus('❌ Classement EN LIGNE indisponible : '+err.message);}
+ }catch(err){onlineLastVerified=false;renderOnlineScores([]);scoreStatus('❌ Classement EN LIGNE indisponible : '+err.message);}
 }
 const refreshBtn=document.createElement('button');
 refreshBtn.type='button';refreshBtn.textContent='🔄 Actualiser le classement en ligne';
 refreshBtn.style.cssText='margin:8px 0;padding:9px 13px;border-radius:9px;border:1px solid #9bd8fc;background:#08375e;color:white;cursor:pointer;font-weight:700';
 refreshBtn.addEventListener('click',refreshOnline);
 onlineState.insertAdjacentElement('afterend',refreshBtn);
+document.querySelector('#leaderboardRefreshLarge').addEventListener('click',refreshOnline);
+document.querySelector('#leaderboardOpen').addEventListener('click',()=>{leaderboardModal.classList.remove('hidden');refreshOnline();});
+document.querySelector('#leaderboardClose').addEventListener('click',()=>leaderboardModal.classList.add('hidden'));
+leaderboardModal.addEventListener('click',e=>{if(e.target===leaderboardModal)leaderboardModal.classList.add('hidden')});
 async function startOnlineRun(){
  onlineRunId=null;onlineRunStartedAt=Date.now();onlineStartPromise=null;
  scoreStatus('Connexion de ta partie au classement en ligne…');
