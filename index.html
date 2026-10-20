@@ -7,9 +7,9 @@
 #attackMobile{background:linear-gradient(135deg,#ffc044,#ff8f21);color:#173353;font-weight:900;touch-action:manipulation}#attackMobile:active{transform:scale(.94)}
 
 /* Classement déroulant attaché aux commandes : reste sous le bouton en plein écran */
-#status{z-index:35;align-items:center}
+#status{z-index:35;align-items:center;overflow:visible}#stage:fullscreen{overflow:visible}
 #globalPanel{display:none!important}
-#leaderboardModal{position:absolute;inset:auto;top:calc(100% + 10px);right:0;width:min(440px,calc(100vw - 24px));padding:0;background:none;display:block;z-index:40}
+#leaderboardModal{position:fixed;inset:auto;top:110px;right:14px;width:min(440px,calc(100vw - 24px));padding:0;background:none;display:block;z-index:400;pointer-events:auto}
 #leaderboardModal.hidden{display:none!important}
 #leaderboardModal .panel{width:100%;height:auto;max-height:min(68dvh,540px);padding:14px;border:2px solid #65d4fb;display:flex;flex-direction:column;background:#102242f5;box-shadow:0 14px 42px #000a;text-align:left}
 #leaderboardModal h2{font-size:clamp(20px,3vw,26px)}
@@ -17,8 +17,8 @@
 #leaderboardModal .leaderboardHeader .buttons{display:flex;justify-content:flex-start;gap:7px;margin-top:10px}
 #leaderboardModal .leaderboardHeader button{font-size:12px;padding:9px 11px}
 #leaderboardFullList{max-height:min(42dvh,340px);min-height:80px;overflow-y:auto}
-#stage:fullscreen #leaderboardModal{right:0;top:calc(100% + 10px)}
-@media(max-width:650px){#status{flex-wrap:wrap;justify-content:flex-end;max-width:calc(100vw - 20px)}#status button{font-size:12px;padding:6px}#leaderboardModal{top:calc(100% + 6px)}#leaderboardModal .panel{max-height:65dvh}}
+#stage:fullscreen #leaderboardModal{position:fixed;right:14px;z-index:400;pointer-events:auto}
+@media(max-width:650px){#status{flex-wrap:wrap;justify-content:flex-end;max-width:calc(100vw - 20px)}#status button{font-size:12px;padding:6px}#leaderboardModal{max-width:calc(100vw - 20px)}#leaderboardModal .panel{max-height:65dvh}}
 </style></head><body><div id="stage"><canvas id="game" width="1152" height="648"></canvas><div id="status"><button id="mute" type="button" title="Activer ou couper la musique">🎵 Musique : ON</button> <button id="effectsMute" type="button" title="Activer ou couper les bruitages et les voix">🔊 Effets : ON</button> <button id="pause" type="button">⏸ Pause</button> <button id="fullscreen" type="button">⛶ Plein écran</button><button id="leaderboardOpen" type="button" aria-expanded="false" aria-controls="leaderboardModal">🏆 Classement général ▾</button><div class="overlay hidden" id="leaderboardModal"><div class="panel"><div class="leaderboardHeader"><div><h2>🏆 Classement général</h2><div id="onlineStateLarge" style="font-size:13px;color:#ffe3ad">Connexion au classement…</div></div><div class="buttons"><button id="leaderboardRefreshLarge" type="button">🔄 Actualiser</button><button id="leaderboardClose" type="button">✕ Fermer</button></div></div><div id="leaderboardFullList">Chargement du classement…</div></div></div></div><div id="touch"><div class="leftBtns"><button data-key="left">◀</button><button data-key="right">▶</button></div><button data-key="jump">SAUT ↑</button><button id="attackMobile" type="button" aria-label="Lancer un Zika">⚡ ZIKA !</button><button type="button" id="crouchMobile" style="touch-action:none;background:#246d9b;color:white;border:2px solid #9fe7ff;border-radius:12px;padding:11px 15px;font-weight:bold">⬇ S’accroupir</button></div><div class="overlay" id="overlay"><div class="panel"><img id="mainLogo" alt="Logo ZikaMansle"><h1 id="heading">ZIKARUN — L'AVENTURE</h1><p id="description">Traverse cinq grands niveaux et 80 sections de Mansle-les-Fontaines avec Zika. Ramasse les notes et rejoins la scène du Festival !</p><input id="nick" maxlength="18" placeholder="Ton pseudo" autocomplete="nickname"><div class="buttons"><button id="play">▶ Jouer</button><button id="listenIntro" type="button">🔊 Écouter Zika</button><button id="help">Commandes</button><button id="resume" type="button">↩ Reprendre</button></div><div id="instructionsCard" style="margin:12px 0;padding:12px 16px;background:#092e4b;border:1px solid #69c9f4;border-radius:12px;color:#fff;font:600 14px system-ui">🎮 COMMANDES : <strong>← →</strong> ou <strong>Q / D</strong> : courir · <strong>Espace / ↑</strong> : sauter (double saut) · <strong>F ou X</strong> : lancer un Zika ⚡ · <strong>P</strong> : pause · <strong>M</strong> : son · <strong>R</strong> : recommencer<br><span style="font-weight:400">📱 Sur téléphone : boutons de déplacement, SAUT et ⚡ ZIKA ! en bas de l'écran.</span></div><p id="top10"></p><small>Classement local et classement partagé Supabase (si le serveur est accessible).</small><p id="achievements" style="font-size:12px;color:#ffe09b"></p></div></div></div>
 <audio id="music" loop preload="auto"></audio><div id="globalPanel" style="position:absolute;bottom:70px;right:12px;max-width:340px;background:#0b2647e8;color:white;border:1px solid #6dbbd7;border-radius:12px;padding:10px 14px;z-index:5;font:13px system-ui"><strong>🏆 Classement général</strong><div id="onlineTop">Configuration serveur requise</div><div id="onlineState">Mode local tant que le serveur n’est pas connecté</div></div>
 <script>const ASSETS={"backgrounds": ["assets/backgrounds_00.webp", "assets/backgrounds_01.webp", "assets/backgrounds_02.webp", "assets/backgrounds_03.webp", "assets/backgrounds_04.webp"], "mascot": "assets/mascot.webp", "logo": "assets/logo.webp", "music": "assets/music.mp3"};
@@ -425,7 +425,20 @@ refreshBtn.style.cssText='margin:8px 0;padding:9px 13px;border-radius:9px;border
 refreshBtn.addEventListener('click',refreshOnline);
 onlineState.insertAdjacentElement('afterend',refreshBtn);
 document.querySelector('#leaderboardRefreshLarge').addEventListener('click',refreshOnline);
-document.querySelector('#leaderboardOpen').addEventListener('click',()=>{const show=leaderboardModal.classList.contains('hidden');leaderboardModal.classList.toggle('hidden',!show);document.querySelector('#leaderboardOpen').setAttribute('aria-expanded',String(show));if(show)refreshOnline();});
+function positionLeaderboard(){
+ const btn=document.querySelector('#leaderboardOpen');
+ const rect=btn.getBoundingClientRect();
+ leaderboardModal.style.top=Math.max(8,Math.min(rect.bottom+7,window.innerHeight-130))+'px';
+ leaderboardModal.style.right=Math.max(8,window.innerWidth-rect.right)+'px';
+}
+document.querySelector('#leaderboardOpen').addEventListener('click',()=>{
+ const show=leaderboardModal.classList.contains('hidden');
+ leaderboardModal.classList.toggle('hidden',!show);
+ document.querySelector('#leaderboardOpen').setAttribute('aria-expanded',String(show));
+ if(show){positionLeaderboard();refreshOnline();}
+});
+document.addEventListener('fullscreenchange',()=>{if(!leaderboardModal.classList.contains('hidden'))requestAnimationFrame(positionLeaderboard)});
+window.addEventListener('resize',()=>{if(!leaderboardModal.classList.contains('hidden'))positionLeaderboard()});
 document.querySelector('#leaderboardClose').addEventListener('click',()=>{leaderboardModal.classList.add('hidden');document.querySelector('#leaderboardOpen').setAttribute('aria-expanded','false')});
 
 async function startOnlineRun(){
