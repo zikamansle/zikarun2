@@ -26,7 +26,7 @@ function saveProgress(){try{localStorage.setItem('zikarunProgressV8',JSON.string
 function clearProgress(){try{localStorage.removeItem('zikarunProgressV8')}catch(e){}}
 function resumeGame(){try{let q=JSON.parse(localStorage.getItem('zikarunProgressV8')||'null');if(!q)return;username=q.name;nick.value=username;lvl=Math.min(4,Math.max(0,q.level||0));score=q.score||0;notes=q.notes||0;lives=q.lives||4;startLevel();p.x=Math.max(65,q.checkpoint||65);checkpoint=p.x;renderTop()}catch(e){}}
 function pauseGame(){if(phase==='play'&&playing){pauseState=true;playing=false;phase='pause';show('⏸ Partie en pause','Reprends quand tu veux. Ta progression est enregistrée.','▶ Continuer',()=>{pauseState=false;ov.classList.add('hidden');playing=true;phase='play';if(musicOn)music.play().catch(()=>{})});music.pause();saveProgress()}}
-document.querySelector('#pause').onclick=pauseGame;document.querySelector('#resume').onclick=resumeGame;achievements();
+document.querySelector('#pause').onclick=pauseGame;document.querySelector('#resume').onclick=()=>{resumeGame();if(typeof startOnlineRun==='function')startOnlineRun();};achievements();
 
 function synth(kind){if(!effectsOn)return;try{soundCtx??=new (window.AudioContext||window.webkitAudioContext)();soundCtx.resume();let t=soundCtx.currentTime,o=soundCtx.createOscillator(),g=soundCtx.createGain();o.connect(g);g.connect(soundCtx.destination);o.type=kind==='note'?'triangle':'square';const hz={jump:380,note:800,hurt:175,finish:540,bonus:1020}[kind]||440;o.frequency.setValueAtTime(hz,t);o.frequency.exponentialRampToValueAtTime(kind==='hurt'?85:hz*1.36,t+.15);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.09,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+.19);o.start(t);o.stop(t+.20)}catch(e){}}
 function scores(){try{return JSON.parse(localStorage.getItem('zikarunTopV5')||'[]')}catch(e){return []}}function savescore(){try{let s=scores();s.push({n:username,s:score});s.sort((a,b)=>b.s-a.s);localStorage.setItem('zikarunTopV5',JSON.stringify(s.slice(0,10)))}catch(e){}}function renderTop(){let s=scores();top10.textContent=s.length?'🏆 Sur cet appareil : '+s.slice(0,5).map((a,i)=>`${i+1}. ${a.n} ${a.s} pts`).join(' | '):'🏆 Aucun score enregistré pour le moment'}renderTop();
@@ -365,49 +365,77 @@ document.querySelector('#effectsMute').onclick=()=>{
  if(!effectsOn)stopZikaSpeech();
 };document.querySelector('#help').onclick=()=>{description.textContent='Clavier : ← → ou Q/D pour courir, espace ou ↑ pour sauter et double-sauter. Sur mobile : boutons en bas de l’écran. Évite les trous et lance des Zikas sur les ennemis avec F ou X (bouton ZIKA ! sur mobile). Accroupis-toi avec ↓, S ou C (bouton ⬇ sur mobile). M coupe la musique, N coupe les effets et les voix.'};document.querySelector('#listenIntro').onclick=()=>sayZika('intro');play.onclick=start;objects=build(0);try{const q=JSON.parse(localStorage.getItem('zikarunProgressV8')||'null');document.querySelector('#resume').style.display=q?'inline-block':'none'}catch(e){}requestAnimationFrame(loop);
 
-/* ZIKARUN ONLINE LEADERBOARD (public endpoint only; never expose service-role keys) */
-const ZIKARUN_ONLINE = { endpoint: 'https://vvxncgncfmaglfuoxxsl.supabase.co/functions/v1/zikarun-scores', version: '2027-1' };
-const onlineReady = !ZIKARUN_ONLINE.endpoint.includes('REPLACE_WITH_');
-const onlineTop = document.querySelector('#onlineTop');
-const onlineState = document.querySelector('#onlineState');
-let onlineRunId = null;
-let onlineRunStartedAt = 0;
-async function onlineRequest(action, payload={}) {
-  const res = await fetch(ZIKARUN_ONLINE.endpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action,...payload}) });
-  if (!res.ok) throw new Error('Serveur : '+res.status);
-  return await res.json();
+/* ZIKARUN ONLINE LEADERBOARD v3 — distinct local and verified server scores */
+const ZIKARUN_ONLINE={endpoint:'https://vvxncgncfmaglfuoxxsl.supabase.co/functions/v1/zikarun-scores'};
+const onlineTop=document.querySelector('#onlineTop');
+const onlineState=document.querySelector('#onlineState');
+let onlineRunId=null, onlineRunStartedAt=0, onlineStartPromise=null, onlineSubmitting=false;
+let onlineLastVerified=false;
+function scoreStatus(msg){onlineState.textContent=msg;}
+async function onlineRequest(action,payload={}){
+ const response=await fetch(ZIKARUN_ONLINE.endpoint,{method:'POST',mode:'cors',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...payload})});
+ let body={};try{body=await response.json()}catch{}
+ if(!response.ok)throw new Error('Serveur '+response.status+(body.error?' ('+body.error+')':''));
+ return body;
 }
-async function refreshOnline() {
-  if (!onlineReady) return;
-  try {
-    let out=await onlineRequest('top');
-    onlineTop.replaceChildren();
-    for(let [i,p] of (out.scores||[]).entries()) {
-      let line=document.createElement('div');
-      line.textContent=(i+1)+'. '+p.pseudo+' — '+Number(p.score).toLocaleString('fr-FR')+' pts';
-      onlineTop.appendChild(line);
-    }
-    onlineState.textContent='Top 10 partagé entre tous les appareils';
-  } catch(e) {onlineState.textContent='Classement indisponible : scores locaux conservés';}
+async function refreshOnline(){
+ scoreStatus('Actualisation du classement en ligne…');
+ try{
+  const out=await onlineRequest('top');
+  if(!Array.isArray(out.scores))throw new Error('Réponse du serveur invalide');
+  onlineTop.replaceChildren();
+  for(const [i,p] of out.scores.entries()){
+   const line=document.createElement('div');
+   line.textContent=(i+1)+'. '+String(p.pseudo||'Anonyme')+' — '+Number(p.score||0).toLocaleString('fr-FR')+' pts';
+   onlineTop.appendChild(line);
+  }
+  if(!out.scores.length)onlineTop.textContent='Aucun score enregistré en ligne pour le moment.';
+  onlineLastVerified=true;
+  scoreStatus('✅ Classement EN LIGNE connecté · '+out.scores.length+' joueur(s)');
+ }catch(err){onlineLastVerified=false;scoreStatus('❌ Classement EN LIGNE indisponible : '+err.message);}
 }
+const refreshBtn=document.createElement('button');
+refreshBtn.type='button';refreshBtn.textContent='🔄 Actualiser le classement en ligne';
+refreshBtn.style.cssText='margin:8px 0;padding:9px 13px;border-radius:9px;border:1px solid #9bd8fc;background:#08375e;color:white;cursor:pointer;font-weight:700';
+refreshBtn.addEventListener('click',refreshOnline);
+onlineState.insertAdjacentElement('afterend',refreshBtn);
 async function startOnlineRun(){
-  onlineRunId=null;onlineRunStartedAt=Date.now();
-  if (!onlineReady)return;
-  try {let r=await onlineRequest('start');onlineRunId=r.run_id;} catch(e) {onlineState.textContent='Partie hors ligne : record local uniquement';}
+ onlineRunId=null;onlineRunStartedAt=Date.now();onlineStartPromise=null;
+ scoreStatus('Connexion de ta partie au classement en ligne…');
+ onlineStartPromise=onlineRequest('start').then(out=>{
+  if(!out.run_id)throw new Error('Identifiant de partie manquant');
+  onlineRunId=out.run_id;
+  scoreStatus('✅ Partie connectée au classement en ligne');
+ }).catch(err=>{onlineRunId=null;scoreStatus('❌ Partie uniquement locale : '+err.message)});
+ return onlineStartPromise;
 }
 async function submitOnlineScore(pseudo,value,levelReached){
-  if (!onlineReady||!onlineRunId)return;
-  const run_id=onlineRunId;onlineRunId=null;
-  try {
-    const r=await onlineRequest('submit',{run_id,pseudo,score:value,level:levelReached});
-    onlineState.textContent=r.accepted?'Score enregistré dans le classement général':'Score non accepté par le serveur';
-    await refreshOnline();
-  }catch(e){onlineState.textContent='Envoi impossible : score sauvegardé sur cet appareil';}
+ if(onlineSubmitting)return;
+ onlineSubmitting=true;
+ try{
+  if(onlineStartPromise)await onlineStartPromise;
+  if(!onlineRunId){scoreStatus('❌ Score LOCAL seulement : impossible de créer la session Supabase');return;}
+  // The installed server requires a run aged at least 30 seconds; do not send prematurely.
+  const wait=Math.max(0,30500-(Date.now()-onlineRunStartedAt));
+  if(wait){scoreStatus('⏳ Validation du score en ligne en cours…');await new Promise(resolve=>setTimeout(resolve,wait));}
+  scoreStatus('Envoi du score à Supabase…');
+  const result=await onlineRequest('submit',{run_id:onlineRunId,pseudo,score:value,level:levelReached});
+  if(!result.accepted){scoreStatus('❌ Score refusé par le serveur');return;}
+  onlineRunId=null;
+  await refreshOnline();
+  scoreStatus('✅ Score ENREGISTRÉ EN LIGNE · visible depuis tous les appareils');
+ }catch(err){
+  scoreStatus('❌ Score non confirmé en ligne : '+err.message+' — record local conservé');
+ }finally{onlineSubmitting=false;}
 }
-const _originalStart = start;
-start = function(){_originalStart();startOnlineRun();};
+const oldStart=start;
+start=function(){oldStart();startOnlineRun();};
 play.onclick=start;
-const _originalSaveScore = savescore;
-savescore=function(){_originalSaveScore();submitOnlineScore(username,score,lvl+1);};
-refreshOnline();
+const oldResume=resumeGame;
+resumeGame=function(){oldResume();startOnlineRun();};
+const resumeEl=document.querySelector('#resume');
+if(resumeEl)resumeEl.onclick=resumeGame;
+const oldSave=savescore;
+savescore=function(){oldSave();void submitOnlineScore(username,score,lvl+1);};
+void refreshOnline();
 </script></body></html>
