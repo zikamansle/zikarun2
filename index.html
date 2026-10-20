@@ -3,7 +3,7 @@
 #achievements{min-height:17px}#pause{background:#283f67!important}#stage:fullscreen #touch{bottom:22px}@media (pointer:coarse) and (orientation:portrait){#stage::after{content:'↻ Tourne ton téléphone en paysage pour mieux jouer';position:absolute;bottom:70px;left:50%;transform:translateX(-50%);background:#102c55e8;border-radius:10px;padding:6px 10px;font-size:12px;pointer-events:none}}
 
 #onlineTop{max-height:120px;overflow:auto;font-size:13px;color:#d9f2ff;line-height:1.5}
-#onlineState{font-size:12px;color:#ffe3ad;margin-top:5px}#leaderboardModal .panel{width:min(980px,96vw);height:min(92dvh,760px);max-height:92dvh;display:flex;flex-direction:column;align-items:stretch;text-align:left}#leaderboardModal h2{margin:0 0 10px;color:#ffb332;font-size:clamp(24px,4vw,36px)}#leaderboardModal .leaderboardHeader{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}#leaderboardModal .leaderboardHeader .buttons{margin:0}#leaderboardFullList{flex:1;overflow:auto;margin-top:12px;padding:12px;border-radius:14px;background:#09233f;border:1px solid #6ecdf5;line-height:1.7}#leaderboardFullList .scoreLine{padding:7px 4px;border-bottom:1px solid #ffffff18}#leaderboardFullList .scoreLine:last-child{border-bottom:0}#status{display:grid;grid-template-columns:repeat(4,max-content);align-items:start}#leaderboardOpen{grid-column:4;grid-row:2;justify-self:stretch;margin-top:4px;padding:8px 12px;border-radius:9px;border:1px solid #9bd8fc;background:#08375e;color:white;cursor:pointer;font-weight:700}
+#onlineState{font-size:12px;color:#ffe3ad;margin-top:5px}#leaderboardModal .panel{width:min(980px,96vw);height:min(92dvh,760px);max-height:92dvh;display:flex;flex-direction:column;align-items:stretch;text-align:left}#leaderboardModal h2{margin:0 0 10px;color:#ffb332;font-size:clamp(24px,4vw,36px)}#leaderboardModal .leaderboardHeader{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}#leaderboardModal .leaderboardHeader .buttons{margin:0}#leaderboardFullList{flex:1;overflow:auto;margin-top:12px;padding:12px;border-radius:14px;background:#09233f;border:1px solid #6ecdf5;line-height:1.7}#leaderboardFullList .scoreLine{padding:7px 4px;border-bottom:1px solid #ffffff18}#leaderboardFullList .scoreLine:last-child{border-bottom:0}#status{display:grid;grid-template-columns:repeat(4,max-content);align-items:start}#resumeScoreButton{grid-column:4;grid-row:3}#resumeScoreButton[hidden]{display:none!important}#leaderboardOpen{grid-column:4;grid-row:2;justify-self:stretch;margin-top:4px;padding:8px 12px;border-radius:9px;border:1px solid #9bd8fc;background:#08375e;color:white;cursor:pointer;font-weight:700}
 #attackMobile{background:linear-gradient(135deg,#ffc044,#ff8f21);color:#173353;font-weight:900;touch-action:manipulation}#attackMobile:active{transform:scale(.94)}
 
 /* Classement déroulant attaché aux commandes : reste sous le bouton en plein écran */
@@ -42,7 +42,7 @@
 @media(max-aspect-ratio:3/4){#overlay.menuCover .panel{width:96vw;height:96vw;max-height:96vw} #overlay.menuCover #nick{left:27%;width:46%}}
 
 #overlay.menuCover #nick{display:none!important}
-#scoreNameDialog{position:absolute;inset:0;z-index:5000;width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:#061328d9;padding:15px}#scoreNameDialog.hidden{display:none!important}#scoreNameDialog .scoreCard{width:min(460px,94vw);padding:26px 22px;border-radius:22px;text-align:center;border:2px solid #62d9ff;background:#0b2b51;color:white;box-shadow:0 15px 75px #000c}#scoreNameDialog h2{color:#ffc15d;margin:0 0 10px}#scoreNameDialog input{width:100%;max-width:340px;margin:12px 0 6px}#scoreNameDialog button{margin-top:12px}</style></head><body><div id="stage"><canvas id="game" width="1152" height="648"></canvas><div id="status"><button id="mute" type="button" title="Activer ou couper la musique">🎵 Musique : ON</button> <button id="effectsMute" type="button" title="Activer ou couper les bruitages et les voix">🔊 Effets : ON</button> <button id="pause" type="button">⏸ Pause</button> <button id="fullscreen" type="button">⛶ Plein écran</button><button id="leaderboardOpen" type="button" aria-expanded="false" aria-controls="leaderboardModal">🏆 Classement général ▾</button><div class="overlay hidden" id="leaderboardModal"><div class="panel"><div class="leaderboardHeader"><div><h2>🏆 Classement général</h2><div id="onlineStateLarge" style="font-size:13px;color:#ffe3ad">Connexion au classement…</div></div><div class="buttons"><button id="leaderboardRefreshLarge" type="button">🔄 Actualiser</button><button id="leaderboardClose" type="button">✕ Fermer</button></div></div><div id="leaderboardFullList">Chargement du classement…</div></div></div></div><div id="touch"><div class="leftBtns"><button data-key="left">◀</button><button data-key="right">▶</button></div><button data-key="jump">SAUT ↑</button><button id="attackMobile" type="button" aria-label="Lancer un Zika">⚡ ZIKA !</button><button type="button" id="crouchMobile" style="touch-action:none;background:#246d9b;color:white;border:2px solid #9fe7ff;border-radius:12px;padding:11px 15px;font-weight:bold">⬇ S’accroupir</button></div><div class="overlay menuCover" id="overlay"><div class="panel"><img id="mainLogo" alt="Logo ZikaMansle"><h1 id="heading">ZikaRun</h1><p id="description">Traverse cinq grands niveaux et 80 sections de Mansle-les-Fontaines avec Zika. Ramasse les notes et rejoins la scène du Festival !</p><input id="nick" maxlength="18" placeholder="Ton pseudo" autocomplete="nickname"><div class="buttons"><button id="play">▶ Jouer</button><button id="resume" type="button">↩ Reprendre</button><button id="help">Commandes</button><button id="listenIntro" type="button">🔊 Écouter Zika</button><button id="menuLeaderboard" type="button">🏆 Classement</button></div><div id="instructionsCard" style="margin:12px 0;padding:12px 16px;background:#092e4b;border:1px solid #69c9f4;border-radius:12px;color:#fff;font:600 14px system-ui">🎮 COMMANDES : <strong>← →</strong> ou <strong>Q / D</strong> : courir · <strong>Espace / ↑</strong> : sauter (double saut) · <strong>F ou X</strong> : lancer un Zika ⚡ · <strong>P</strong> : pause · <strong>M</strong> : son · <strong>R</strong> : recommencer<br><span style="font-weight:400">📱 Sur téléphone : boutons de déplacement, SAUT et ⚡ ZIKA ! en bas de l'écran.</span></div><p id="top10"></p><small>Classement local et classement partagé Supabase (si le serveur est accessible).</small><p id="achievements" style="font-size:12px;color:#ffe09b"></p></div></div></div>
+#scoreNameDialog{position:absolute;inset:0;z-index:5000;width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:#061328d9;padding:15px}#scoreNameDialog.hidden{display:none!important}#scoreNameDialog .scoreCard{width:min(460px,94vw);padding:26px 22px;border-radius:22px;text-align:center;border:2px solid #62d9ff;background:#0b2b51;color:white;box-shadow:0 15px 75px #000c}#scoreNameDialog h2{color:#ffc15d;margin:0 0 10px}#scoreNameDialog input{width:100%;max-width:340px;margin:12px 0 6px}#scoreNameDialog button{margin-top:12px}</style></head><body><div id="stage"><canvas id="game" width="1152" height="648"></canvas><div id="status"><button id="mute" type="button" title="Activer ou couper la musique">🎵 Musique : ON</button> <button id="effectsMute" type="button" title="Activer ou couper les bruitages et les voix">🔊 Effets : ON</button> <button id="pause" type="button">⏸ Pause</button> <button id="fullscreen" type="button">⛶ Plein écran</button><button id="leaderboardOpen" type="button" aria-expanded="false" aria-controls="leaderboardModal">🏆 Classement général ▾</button><button id="resumeScoreButton" type="button" hidden>💾 Enregistrer mon score</button><div class="overlay hidden" id="leaderboardModal"><div class="panel"><div class="leaderboardHeader"><div><h2>🏆 Classement général</h2><div id="onlineStateLarge" style="font-size:13px;color:#ffe3ad">Connexion au classement…</div></div><div class="buttons"><button id="leaderboardRefreshLarge" type="button">🔄 Actualiser</button><button id="leaderboardClose" type="button">✕ Fermer</button></div></div><div id="leaderboardFullList">Chargement du classement…</div></div></div></div><div id="touch"><div class="leftBtns"><button data-key="left">◀</button><button data-key="right">▶</button></div><button data-key="jump">SAUT ↑</button><button id="attackMobile" type="button" aria-label="Lancer un Zika">⚡ ZIKA !</button><button type="button" id="crouchMobile" style="touch-action:none;background:#246d9b;color:white;border:2px solid #9fe7ff;border-radius:12px;padding:11px 15px;font-weight:bold">⬇ S’accroupir</button></div><div class="overlay menuCover" id="overlay"><div class="panel"><img id="mainLogo" alt="Logo ZikaMansle"><h1 id="heading">ZikaRun</h1><p id="description">Traverse cinq grands niveaux et 80 sections de Mansle-les-Fontaines avec Zika. Ramasse les notes et rejoins la scène du Festival !</p><input id="nick" maxlength="18" placeholder="Ton pseudo" autocomplete="nickname"><div class="buttons"><button id="play">▶ Jouer</button><button id="resume" type="button">↩ Reprendre</button><button id="help">Commandes</button><button id="listenIntro" type="button">🔊 Écouter Zika</button><button id="menuLeaderboard" type="button">🏆 Classement</button></div><div id="instructionsCard" style="margin:12px 0;padding:12px 16px;background:#092e4b;border:1px solid #69c9f4;border-radius:12px;color:#fff;font:600 14px system-ui">🎮 COMMANDES : <strong>← →</strong> ou <strong>Q / D</strong> : courir · <strong>Espace / ↑</strong> : sauter (double saut) · <strong>F ou X</strong> : lancer un Zika ⚡ · <strong>P</strong> : pause · <strong>M</strong> : son · <strong>R</strong> : recommencer<br><span style="font-weight:400">📱 Sur téléphone : boutons de déplacement, SAUT et ⚡ ZIKA ! en bas de l'écran.</span></div><p id="top10"></p><small>Classement local et classement partagé Supabase (si le serveur est accessible).</small><p id="achievements" style="font-size:12px;color:#ffe09b"></p></div></div></div>
 <div id="scoreNameDialog" class="hidden" role="dialog" aria-modal="true" aria-labelledby="scoreNameHeading"><div class="scoreCard"><h2 id="scoreNameHeading">🏆 Inscris ton score !</h2><p id="scoreNamePoints"></p><label for="scoreNameInput">Ton pseudo pour le classement général</label><input id="scoreNameInput" maxlength="18" autocomplete="nickname" placeholder="Ton pseudo"><div><button id="scoreNameSave" type="button">✅ Enregistrer mon score</button></div><p id="scoreSaveStatus" aria-live="polite" style="min-height:28px;color:#d9efff;font-size:14px"></p><small>Entre 2 et 18 caractères (lettres, chiffres, espaces, _, . et -).</small></div></div><audio id="music" loop preload="auto"></audio><div id="globalPanel" style="position:absolute;bottom:70px;right:12px;max-width:340px;background:#0b2647e8;color:white;border:1px solid #6dbbd7;border-radius:12px;padding:10px 14px;z-index:5;font:13px system-ui"><strong>🏆 Classement général</strong><div id="onlineTop">Configuration serveur requise</div><div id="onlineState">Mode local tant que le serveur n’est pas connecté</div></div>
 <script>const ASSETS={"backgrounds": ["assets/backgrounds_00.webp", "assets/backgrounds_01.webp", "assets/backgrounds_02.webp", "assets/backgrounds_03.webp", "assets/backgrounds_04.webp"], "mascot": "assets/mascot.webp", "logo": "assets/logo.webp", "music": "assets/music.mp3"};
 const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),ov=document.querySelector('#overlay'),heading=document.querySelector('#heading'),description=document.querySelector('#description'),play=document.querySelector('#play'),nick=document.querySelector('#nick'),music=document.querySelector('#music'),top10=document.querySelector('#top10');
@@ -520,56 +520,110 @@ resumeGame=function(){oldResume();startOnlineRun();};
 const resumeEl=document.querySelector('#resume');
 if(resumeEl)resumeEl.onclick=resumeGame;
 const oldSave=savescore;
-let pendingNameScore=null, scoreRecording=false, savedScoreDialogClosed=false;
+let pendingNameScore=null;
+let scoreRecording=false;
+let savedScoreDialogClosed=false;
+let scoreRequestSerial=0;
 const nameDialog=document.querySelector('#scoreNameDialog');
 const scoreNameInput=document.querySelector('#scoreNameInput');
 const scoreSaveStatus=document.querySelector('#scoreSaveStatus');
 const scoreNameSave=document.querySelector('#scoreNameSave');
-// Le dialogue doit être un enfant de #stage pour rester visible en plein écran.
-document.querySelector('#stage').appendChild(nameDialog);
+// Formulaire dans le véritable élément plein écran (#stage), pas dans <body>.
+if(nameDialog.parentElement!==document.querySelector('#stage'))document.querySelector('#stage').appendChild(nameDialog);
+nameDialog.style.zIndex='100000';
+// Empêcher les commandes du jeu et les clics sous le formulaire.
+nameDialog.addEventListener('pointerdown',e=>e.stopPropagation());
+nameDialog.addEventListener('click',e=>e.stopPropagation());
 function closeRecordedScore(){
- pendingNameScore=null;savedScoreDialogClosed=true;
+ savedScoreDialogClosed=true;
+ pendingNameScore=null;
  nameDialog.classList.add('hidden');
+ const btn=document.querySelector('#resumeScoreButton');if(btn)btn.hidden=true;
  scoreNameSave.disabled=false;
+ scoreNameSave.textContent='✅ Enregistrer mon score';
+ scoreNameInput.blur();
 }
 async function confirmScoreName(){
- if(!pendingNameScore||scoreRecording||savedScoreDialogClosed)return;
+ const pending=pendingNameScore;
+ if(!pending||scoreRecording||savedScoreDialogClosed)return;
  const pseudo=scoreNameInput.value.normalize('NFC').trim();
  if(!/^[\p{L}\p{N} _.-]{2,18}$/u.test(pseudo)){
-  scoreSaveStatus.textContent='Saisis un pseudo de 2 à 18 caractères (lettres, chiffres, espaces, _, . et -).';
+  scoreSaveStatus.textContent='Saisis un pseudo de 2 à 18 caractères.';
   scoreNameInput.focus();return;
  }
+ scoreRecording=true;
+ scoreNameSave.disabled=true;
+ scoreNameSave.textContent='⏳ Enregistrement…';
  username=pseudo; nick.value=pseudo;
- if(!pendingNameScore.localSaved){oldSave();pendingNameScore.localSaved=true;}
- scoreRecording=true;scoreNameSave.disabled=true;scoreNameSave.textContent='⏳ Enregistrement…';
- const pending=pendingNameScore;
- const ok=await submitOnlineScore(pseudo,pending.value,pending.level,msg=>scoreSaveStatus.textContent=msg);
+ if(!pending.localSaved){oldSave();pending.localSaved=true;}
+ const serial=scoreRequestSerial;
+ let ok=false;
+ try{ok=await submitOnlineScore(pseudo,pending.value,pending.level,msg=>{
+  if(serial===scoreRequestSerial)scoreSaveStatus.textContent=msg;
+ });}catch(err){scoreSaveStatus.textContent='❌ '+String(err.message||err)}
  scoreRecording=false;
+ if(serial!==scoreRequestSerial||savedScoreDialogClosed)return;
  if(ok){
-  scoreNameSave.textContent='✅ Score enregistré';
-  // Fermer définitivement ce dialogue après un envoi réussi.
+  scoreSaveStatus.textContent='✅ Score enregistré en ligne !';
   closeRecordedScore();
  }else{
-  scoreNameSave.disabled=false;scoreNameSave.textContent='🔄 Réessayer l’enregistrement';
+  scoreNameSave.disabled=false;
+  scoreNameSave.textContent='🔄 Réessayer l’enregistrement';
  }
 }
-scoreNameSave.addEventListener('click',confirmScoreName);
+// Clic / toucher et Entrée sont deux méthodes indépendantes de validation.
+scoreNameSave.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();void confirmScoreName();});
 scoreNameInput.addEventListener('keydown',e=>{
- if(e.key==='Enter'){e.preventDefault();e.stopPropagation();void confirmScoreName();}
+ e.stopPropagation();
+ if(e.key==='Enter'){e.preventDefault();void confirmScoreName();}
 });
-// Ne jamais réouvrir un score déjà enregistré à la sortie du plein écran.
-document.addEventListener('fullscreenchange',()=>{
- if(savedScoreDialogClosed||!pendingNameScore)nameDialog.classList.add('hidden');
-});
-savescore=function(){
- if(pendingNameScore||scoreRecording)return;
- savedScoreDialogClosed=false;
+function openRecordedScore(){
+ if(savedScoreDialogClosed||pendingNameScore||scoreRecording)return;
+ scoreRequestSerial++;
+ const resumeButton=document.querySelector('#resumeScoreButton');if(resumeButton)resumeButton.hidden=false;
  pendingNameScore={value:score,level:lvl+1,localSaved:false};
  document.querySelector('#scoreNamePoints').textContent='Ton score : '+score.toLocaleString('fr-FR')+' points';
- scoreNameInput.value='';scoreSaveStatus.textContent='Saisis ton pseudo puis appuie sur Entrée ou « Enregistrer mon score ». ';
- scoreNameSave.disabled=false;scoreNameSave.textContent='✅ Enregistrer mon score';
+ scoreNameInput.value='';
+ scoreSaveStatus.textContent='Saisis ton pseudo, puis clique sur Enregistrer ou appuie sur Entrée.';
+ scoreNameSave.disabled=false;
+ scoreNameSave.textContent='✅ Enregistrer mon score';
  nameDialog.classList.remove('hidden');
- scoreNameInput.focus();
+ requestAnimationFrame(()=>{if(!nameDialog.classList.contains('hidden'))scoreNameInput.focus({preventScroll:true});});
+}
+// Une seule demande de pseudo par résultat. Le quitter du plein écran NE relance rien.
+let scoreFinishConsumed=false;
+savescore=function(){
+ if(scoreFinishConsumed)return;
+ scoreFinishConsumed=true;
+ openRecordedScore();
 };
+const oldStartWithOnline=start;
+start=function(){
+ scoreFinishConsumed=false;
+ scoreRequestSerial++;
+ pendingNameScore=null;
+ savedScoreDialogClosed=false;
+ scoreRecording=false;
+ const rb=document.querySelector('#resumeScoreButton');if(rb)rb.hidden=true;
+ nameDialog.classList.add('hidden');
+ oldStartWithOnline();
+};
+play.onclick=start;
+document.querySelector('#resumeScoreButton').addEventListener('click',()=>{if(pendingNameScore&&!savedScoreDialogClosed){nameDialog.classList.remove('hidden');nameDialog.dataset.closedByFullscreen='0';scoreNameInput.focus();}});
+// Ne jamais afficher une nouvelle modale depuis fullscreenchange.
+document.addEventListener('fullscreenchange',()=>{
+ if(!document.fullscreenElement){
+  // Si le joueur sort du plein écran avant d'enregistrer, conserver la saisie en mémoire
+  // mais refermer le dialogue : ne pas le réafficher spontanément.
+  if(!nameDialog.classList.contains('hidden')){
+   nameDialog.classList.add('hidden');
+   nameDialog.dataset.closedByFullscreen='1';
+   if(pendingNameScore){
+    const msg='Score en attente : ouvre le classement pour retrouver l’option d’enregistrement.';
+    scoreStatus(msg);
+   }
+  }
+ }
+});
 void refreshOnline();
 </script></body></html>
