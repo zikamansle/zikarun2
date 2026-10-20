@@ -43,7 +43,7 @@
 
 #overlay.menuCover #nick{display:none!important}
 #scoreNameDialog{position:absolute;inset:0;z-index:5000;width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:#061328d9;padding:15px}#scoreNameDialog.hidden{display:none!important}#scoreNameDialog .scoreCard{width:min(460px,94vw);padding:26px 22px;border-radius:22px;text-align:center;border:2px solid #62d9ff;background:#0b2b51;color:white;box-shadow:0 15px 75px #000c}#scoreNameDialog h2{color:#ffc15d;margin:0 0 10px}#scoreNameDialog input{width:100%;max-width:340px;margin:12px 0 6px}#scoreNameDialog button{margin-top:12px}</style></head><body><div id="stage"><canvas id="game" width="1152" height="648"></canvas><div id="status"><button id="mute" type="button" title="Activer ou couper la musique">🎵 Musique : ON</button> <button id="effectsMute" type="button" title="Activer ou couper les bruitages et les voix">🔊 Effets : ON</button> <button id="pause" type="button">⏸ Pause</button> <button id="fullscreen" type="button">⛶ Plein écran</button><button id="leaderboardOpen" type="button" aria-expanded="false" aria-controls="leaderboardModal">🏆 Classement général ▾</button><div class="overlay hidden" id="leaderboardModal"><div class="panel"><div class="leaderboardHeader"><div><h2>🏆 Classement général</h2><div id="onlineStateLarge" style="font-size:13px;color:#ffe3ad">Connexion au classement…</div></div><div class="buttons"><button id="leaderboardRefreshLarge" type="button">🔄 Actualiser</button><button id="leaderboardClose" type="button">✕ Fermer</button></div></div><div id="leaderboardFullList">Chargement du classement…</div></div></div></div><div id="touch"><div class="leftBtns"><button data-key="left">◀</button><button data-key="right">▶</button></div><button data-key="jump">SAUT ↑</button><button id="attackMobile" type="button" aria-label="Lancer un Zika">⚡ ZIKA !</button><button type="button" id="crouchMobile" style="touch-action:none;background:#246d9b;color:white;border:2px solid #9fe7ff;border-radius:12px;padding:11px 15px;font-weight:bold">⬇ S’accroupir</button></div><div class="overlay menuCover" id="overlay"><div class="panel"><img id="mainLogo" alt="Logo ZikaMansle"><h1 id="heading">ZikaRun</h1><p id="description">Traverse cinq grands niveaux et 80 sections de Mansle-les-Fontaines avec Zika. Ramasse les notes et rejoins la scène du Festival !</p><input id="nick" maxlength="18" placeholder="Ton pseudo" autocomplete="nickname"><div class="buttons"><button id="play">▶ Jouer</button><button id="resume" type="button">↩ Reprendre</button><button id="help">Commandes</button><button id="listenIntro" type="button">🔊 Écouter Zika</button><button id="menuLeaderboard" type="button">🏆 Classement</button></div><div id="instructionsCard" style="margin:12px 0;padding:12px 16px;background:#092e4b;border:1px solid #69c9f4;border-radius:12px;color:#fff;font:600 14px system-ui">🎮 COMMANDES : <strong>← →</strong> ou <strong>Q / D</strong> : courir · <strong>Espace / ↑</strong> : sauter (double saut) · <strong>F ou X</strong> : lancer un Zika ⚡ · <strong>P</strong> : pause · <strong>M</strong> : son · <strong>R</strong> : recommencer<br><span style="font-weight:400">📱 Sur téléphone : boutons de déplacement, SAUT et ⚡ ZIKA ! en bas de l'écran.</span></div><p id="top10"></p><small>Classement local et classement partagé Supabase (si le serveur est accessible).</small><p id="achievements" style="font-size:12px;color:#ffe09b"></p></div></div></div>
-<div id="scoreNameDialog" class="hidden" role="dialog" aria-modal="true" aria-labelledby="scoreNameHeading"><div class="scoreCard"><h2 id="scoreNameHeading">🏆 Inscris ton score !</h2><p id="scoreNamePoints"></p><label for="scoreNameInput">Ton pseudo pour le classement général</label><input id="scoreNameInput" maxlength="18" autocomplete="nickname" placeholder="Ton pseudo"><div><button id="scoreNameSave" type="button">✅ Enregistrer mon score</button></div><small>Ce nom sera affiché avec ton score dans le classement.</small></div></div><audio id="music" loop preload="auto"></audio><div id="globalPanel" style="position:absolute;bottom:70px;right:12px;max-width:340px;background:#0b2647e8;color:white;border:1px solid #6dbbd7;border-radius:12px;padding:10px 14px;z-index:5;font:13px system-ui"><strong>🏆 Classement général</strong><div id="onlineTop">Configuration serveur requise</div><div id="onlineState">Mode local tant que le serveur n’est pas connecté</div></div>
+<div id="scoreNameDialog" class="hidden" role="dialog" aria-modal="true" aria-labelledby="scoreNameHeading"><div class="scoreCard"><h2 id="scoreNameHeading">🏆 Inscris ton score !</h2><p id="scoreNamePoints"></p><label for="scoreNameInput">Ton pseudo pour le classement général</label><input id="scoreNameInput" maxlength="18" autocomplete="nickname" placeholder="Ton pseudo"><div><button id="scoreNameSave" type="button">✅ Enregistrer mon score</button></div><p id="scoreSaveStatus" aria-live="polite" style="min-height:28px;color:#d9efff;font-size:14px"></p><small>Entre 2 et 18 caractères (lettres, chiffres, espaces, _, . et -).</small></div></div><audio id="music" loop preload="auto"></audio><div id="globalPanel" style="position:absolute;bottom:70px;right:12px;max-width:340px;background:#0b2647e8;color:white;border:1px solid #6dbbd7;border-radius:12px;padding:10px 14px;z-index:5;font:13px system-ui"><strong>🏆 Classement général</strong><div id="onlineTop">Configuration serveur requise</div><div id="onlineState">Mode local tant que le serveur n’est pas connecté</div></div>
 <script>const ASSETS={"backgrounds": ["assets/backgrounds_00.webp", "assets/backgrounds_01.webp", "assets/backgrounds_02.webp", "assets/backgrounds_03.webp", "assets/backgrounds_04.webp"], "mascot": "assets/mascot.webp", "logo": "assets/logo.webp", "music": "assets/music.mp3"};
 const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),ov=document.querySelector('#overlay'),heading=document.querySelector('#heading'),description=document.querySelector('#description'),play=document.querySelector('#play'),nick=document.querySelector('#nick'),music=document.querySelector('#music'),top10=document.querySelector('#top10');
 const W=1152,H=648,FLOOR=553,SEGW=1700,SEGMENTS=16,WIDTH=SEGW*SEGMENTS;
@@ -391,7 +391,7 @@ paintAnimatedZika();
 ctx.fillStyle='#0d2748dd';ctx.beginPath();ctx.roundRect(12,12,755,66,15);ctx.fill();ctx.fillStyle='white';ctx.font='bold 20px system-ui';ctx.fillText('ZIKARUN • '+(lvl+1)+'/5 • '+names[lvl],25,40);ctx.font='17px system-ui';ctx.fillText('👤 '+username+'    ❤ '+lives+'    ♪ '+notes+'    ★ '+score+' points   ✦ '+collectedBonus+' bonus',25,64);ctx.font='bold 14px system-ui';ctx.fillStyle='#ffe5a1';ctx.fillText('Défi : '+challenges[lvl][0]+' — '+challenges[lvl][1],780,32);ctx.fillStyle='#052a49d9';ctx.fillRect(18,H-62,850,29);ctx.fillStyle='white';ctx.font='bold 14px system-ui';ctx.fillText('← → / Q D : courir   •   ESPACE : double saut   •   ↓ / S : accroupir   •   F / X : ⚡ ZIKA !   •   ÉCHAP : pause',28,H-43);ctx.fillStyle='#16284b9c';ctx.fillRect(20,H-25,W-40,10);ctx.fillStyle='#ffb438';ctx.fillRect(20,H-25,(W-40)*Math.min(1,p.x/WIDTH),10);
 }
 let lastFrame=0;function loop(t){let dt=Math.min(2.2,(t-lastFrame)/16.666||1);lastFrame=t;update(dt);if(objects)draw();requestAnimationFrame(loop)}
-function key(e,down){let k=e.key.toLowerCase();if(['arrowleft','arrowright','arrowup','arrowdown',' '].includes(k))e.preventDefault();if(down&&k==='escape')pauseGame();if(down&&k==='m')document.querySelector('#mute').click();if(down&&k==='n')document.querySelector('#effectsMute').click();if(down&&k==='r'&&playing)startLevel();if(k==='arrowleft'||k==='a'||k==='q')control.left=down;if(k==='arrowright'||k==='d')control.right=down;if(k==='arrowdown'||k==='s'||k==='c')control.down=down;if(down&&!e.repeat&&(k==='arrowup'||k==='w'||k===' '))jump();if(down&&!e.repeat&&(k==='f'||k==='x'))shootZika()}addEventListener('keydown',e=>key(e,true));addEventListener('keyup',e=>key(e,false));for(let b of document.querySelectorAll('[data-key]')){let k=b.dataset.key;b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);if(k==='jump')jump();else control[k]=true});for(let ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>{if(k!=='jump')control[k]=false})}
+function key(e,down){if(!document.querySelector('#scoreNameDialog').classList.contains('hidden'))return;let k=e.key.toLowerCase();if(['arrowleft','arrowright','arrowup','arrowdown',' '].includes(k))e.preventDefault();if(down&&k==='escape')pauseGame();if(down&&k==='m')document.querySelector('#mute').click();if(down&&k==='n')document.querySelector('#effectsMute').click();if(down&&k==='r'&&playing)startLevel();if(k==='arrowleft'||k==='a'||k==='q')control.left=down;if(k==='arrowright'||k==='d')control.right=down;if(k==='arrowdown'||k==='s'||k==='c')control.down=down;if(down&&!e.repeat&&(k==='arrowup'||k==='w'||k===' '))jump();if(down&&!e.repeat&&(k==='f'||k==='x'))shootZika()}addEventListener('keydown',e=>key(e,true));addEventListener('keyup',e=>key(e,false));for(let b of document.querySelectorAll('[data-key]')){let k=b.dataset.key;b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);if(k==='jump')jump();else control[k]=true});for(let ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>{if(k!=='jump')control[k]=false})}
 document.querySelector('#attackMobile').addEventListener('pointerdown',e=>{e.preventDefault();shootZika()});
 const crouchBtn=document.querySelector('#crouchMobile');
 crouchBtn.addEventListener('pointerdown',e=>{e.preventDefault();control.down=true;crouchBtn.setPointerCapture(e.pointerId)});
@@ -491,23 +491,25 @@ async function startOnlineRun(){
  }).catch(err=>{onlineRunId=null;scoreStatus('❌ Partie uniquement locale : '+err.message)});
  return onlineStartPromise;
 }
-async function submitOnlineScore(pseudo,value,levelReached){
- if(onlineSubmitting)return;
+async function submitOnlineScore(pseudo,value,levelReached,report=()=>{}){
+ if(onlineSubmitting) return false;
  onlineSubmitting=true;
  try{
   if(onlineStartPromise)await onlineStartPromise;
-  if(!onlineRunId){scoreStatus('❌ Score LOCAL seulement : impossible de créer la session Supabase');return;}
-  // The installed server requires a run aged at least 30 seconds; do not send prematurely.
+  if(!onlineRunId)throw new Error('Session Supabase non disponible. Recommence une partie pour enregistrer un score en ligne.');
   const wait=Math.max(0,30500-(Date.now()-onlineRunStartedAt));
-  if(wait){scoreStatus('⏳ Validation du score en ligne en cours…');await new Promise(resolve=>setTimeout(resolve,wait));}
-  scoreStatus('Envoi du score à Supabase…');
+  if(wait){report('⏳ Vérification de la durée de partie…');await new Promise(resolve=>setTimeout(resolve,wait));}
+  report('⏳ Enregistrement du score sur Supabase…');
   const result=await onlineRequest('submit',{run_id:onlineRunId,pseudo,score:value,level:levelReached});
-  if(!result.accepted){scoreStatus('❌ Score refusé par le serveur');return;}
+  if(!result.accepted)throw new Error(result.error||'Score refusé par le serveur');
   onlineRunId=null;
-  await refreshOnline();
+  report('✅ Score enregistré en ligne !');
+  try{await refreshOnline();}catch(_){}
   scoreStatus('✅ Score ENREGISTRÉ EN LIGNE · visible depuis tous les appareils');
+  return true;
  }catch(err){
-  scoreStatus('❌ Score non confirmé en ligne : '+err.message+' — record local conservé');
+  const msg='❌ Enregistrement en ligne impossible : '+err.message;
+  report(msg);scoreStatus(msg);return false;
  }finally{onlineSubmitting=false;}
 }
 const oldStart=start;
@@ -518,27 +520,54 @@ resumeGame=function(){oldResume();startOnlineRun();};
 const resumeEl=document.querySelector('#resume');
 if(resumeEl)resumeEl.onclick=resumeGame;
 const oldSave=savescore;
-let pendingNameScore=null;
-// Placer la saisie du pseudo DANS #stage : cet élément est celui qui passe en plein écran.
-// Les enfants extérieurs à #stage deviennent invisibles pendant requestFullscreen().
-document.querySelector('#stage').appendChild(document.querySelector('#scoreNameDialog'));
+let pendingNameScore=null, scoreRecording=false, savedScoreDialogClosed=false;
 const nameDialog=document.querySelector('#scoreNameDialog');
 const scoreNameInput=document.querySelector('#scoreNameInput');
-function confirmScoreName(){
- if(!pendingNameScore)return;
- const pending=pendingNameScore;pendingNameScore=null;
- username=(scoreNameInput.value.trim().slice(0,18)||'ZikaFan');
- nick.value=username;
+const scoreSaveStatus=document.querySelector('#scoreSaveStatus');
+const scoreNameSave=document.querySelector('#scoreNameSave');
+// Le dialogue doit être un enfant de #stage pour rester visible en plein écran.
+document.querySelector('#stage').appendChild(nameDialog);
+function closeRecordedScore(){
+ pendingNameScore=null;savedScoreDialogClosed=true;
  nameDialog.classList.add('hidden');
- oldSave();
- void submitOnlineScore(username,pending.value,pending.level);
+ scoreNameSave.disabled=false;
 }
-document.querySelector('#scoreNameSave').addEventListener('click',confirmScoreName);
-scoreNameInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();confirmScoreName();}});
+async function confirmScoreName(){
+ if(!pendingNameScore||scoreRecording||savedScoreDialogClosed)return;
+ const pseudo=scoreNameInput.value.normalize('NFC').trim();
+ if(!/^[\p{L}\p{N} _.-]{2,18}$/u.test(pseudo)){
+  scoreSaveStatus.textContent='Saisis un pseudo de 2 à 18 caractères (lettres, chiffres, espaces, _, . et -).';
+  scoreNameInput.focus();return;
+ }
+ username=pseudo; nick.value=pseudo;
+ if(!pendingNameScore.localSaved){oldSave();pendingNameScore.localSaved=true;}
+ scoreRecording=true;scoreNameSave.disabled=true;scoreNameSave.textContent='⏳ Enregistrement…';
+ const pending=pendingNameScore;
+ const ok=await submitOnlineScore(pseudo,pending.value,pending.level,msg=>scoreSaveStatus.textContent=msg);
+ scoreRecording=false;
+ if(ok){
+  scoreNameSave.textContent='✅ Score enregistré';
+  // Fermer définitivement ce dialogue après un envoi réussi.
+  closeRecordedScore();
+ }else{
+  scoreNameSave.disabled=false;scoreNameSave.textContent='🔄 Réessayer l’enregistrement';
+ }
+}
+scoreNameSave.addEventListener('click',confirmScoreName);
+scoreNameInput.addEventListener('keydown',e=>{
+ if(e.key==='Enter'){e.preventDefault();e.stopPropagation();void confirmScoreName();}
+});
+// Ne jamais réouvrir un score déjà enregistré à la sortie du plein écran.
+document.addEventListener('fullscreenchange',()=>{
+ if(savedScoreDialogClosed||!pendingNameScore)nameDialog.classList.add('hidden');
+});
 savescore=function(){
- pendingNameScore={value:score,level:lvl+1};
+ if(pendingNameScore||scoreRecording)return;
+ savedScoreDialogClosed=false;
+ pendingNameScore={value:score,level:lvl+1,localSaved:false};
  document.querySelector('#scoreNamePoints').textContent='Ton score : '+score.toLocaleString('fr-FR')+' points';
- scoreNameInput.value='';
+ scoreNameInput.value='';scoreSaveStatus.textContent='Saisis ton pseudo puis appuie sur Entrée ou « Enregistrer mon score ». ';
+ scoreNameSave.disabled=false;scoreNameSave.textContent='✅ Enregistrer mon score';
  nameDialog.classList.remove('hidden');
  scoreNameInput.focus();
 };
